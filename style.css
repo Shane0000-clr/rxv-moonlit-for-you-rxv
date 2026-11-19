@@ -1,0 +1,212 @@
+:root {
+  --font: 'Playfair Display', serif;
+  --ink: #c2185b;        /* readable pink for text */
+  --vine: #d6336c;       /* pink for the vines */
+  --doodle: #ff6fa5;     /* pink for the background sketch lines */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 10%, #fff3f8, transparent 55%),
+    linear-gradient(160deg, #ffd9e8, #ffb9d4);
+  user-select: none;
+}
+
+/* ---------- scenes ---------- */
+.scene {
+  position: fixed; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 20px; text-align: center;
+  opacity: 0; pointer-events: none; transition: opacity .7s;
+}
+.scene.active { opacity: 1; pointer-events: auto; }
+
+/* ---------- cover card (girly) ---------- */
+.card {
+  position: relative; cursor: pointer;
+  width: max-content; max-width: 86vw; padding: 28px 30px 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(145deg, #fff9fc 0%, #ffe4f0 100%);
+  border: 2px solid var(--vine); border-radius: 28px;
+  box-shadow: 0 0 0 5px #fff2f7, 0 0 0 7px rgba(214, 51, 108, .35),
+              0 14px 32px rgba(214, 51, 108, .25);
+  transform: translateY(-28px) rotate(-2deg); opacity: 0;
+}
+.card::before, .card::after {
+  position: absolute; color: #ff6fa5; font-size: 15px; pointer-events: none;
+}
+.card::before { content: '♥'; top: 9px; left: 13px; }
+.card::after  { content: '♥'; bottom: 9px; right: 13px; }
+.card-bow {
+  position: absolute; top: -17px; left: 50%; transform: translateX(-50%);
+  width: 76px; height: auto; pointer-events: none; z-index: 3;
+  fill: #ffc2dc; stroke: var(--vine); stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 2px 2px rgba(214, 51, 108, .25));
+}
+#cover.active .card { animation: cardIn .9s .6s both cubic-bezier(.2, 1.4, .4, 1); }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(-28px) scale(.4) rotate(-12deg); }
+  to   { opacity: 1; transform: translateY(-28px) scale(1) rotate(-2deg); }
+}
+.title {
+  position: relative; z-index: 2; padding: 0;
+  font-family: var(--font); font-weight: 400;
+  font-size: clamp(2rem, 9vw, 3rem); line-height: 1.2; color: var(--ink);
+  letter-spacing: .01em; text-shadow: 0 1px 0 #fff;
+}
+
+/* ---------- tap-to-open / next hint ---------- */
+.tap-hint {
+  position: relative; z-index: 2;
+  font-family: var(--font); font-size: 1.05rem; font-weight: 700;
+  color: var(--ink); background: none; border: none; padding: 6px 10px;
+  cursor: pointer; animation: pulse 1.6s ease-in-out infinite;
+}
+.cover-hint { position: absolute; bottom: 6%; left: 0; right: 0; }
+#nextBtn { margin-top: 26px; }
+@keyframes pulse { 50% { opacity: .4; transform: scale(.96); } }
+
+/* ---------- letter ---------- */
+.paper-frame { position: relative; }
+.paper {
+  width: min(88vw, 400px); height: min(78vh, 620px); overflow-y: auto;
+  padding: 30px 28px; text-align: left;
+  font-family: var(--font); font-size: 1.15rem; line-height: 30px; color: var(--ink);
+  background-color: #fffafc;
+  background-image: repeating-linear-gradient(transparent 0 29px, rgba(214, 51, 108, .28) 29px 30px);
+  background-attachment: local;
+  border: 2px solid rgba(214, 51, 108, .45); border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(214, 51, 108, .22);
+}
+.paper p { margin-bottom: 30px; color: var(--ink); }
+#letter.active .paper { animation: unfold .9s both cubic-bezier(.2, 1.2, .4, 1); }
+@keyframes unfold {
+  from { opacity: 0; transform: scale(.5) rotate(-6deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+.paper.closing, .vine-border.closing { animation: shrinkOut .35s ease-in forwards !important; }
+@keyframes shrinkOut {
+  0%   { opacity: 1; transform: scale(1) rotate(0); }
+  70%  { opacity: 1; transform: scale(.5) rotate(3deg); }
+  100% { opacity: 0; transform: scale(.4) rotate(4deg); }
+}
+
+/* ---------- vine border around the paper ---------- */
+.vine-border {
+  position: absolute; left: -20px; top: -20px;
+  pointer-events: none; z-index: 3; overflow: visible;
+}
+.vine-stem {
+  fill: none; stroke: var(--vine); stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round; opacity: .8;
+}
+.vine-leaf { color: var(--vine); opacity: .85; }
+
+/* ---------- buttons (curly girly line) ---------- */
+.btn {
+  margin-top: 0; padding: .8rem 2.2rem;
+  font-family: var(--font); font-size: 1.05rem; font-weight: 700; color: var(--ink);
+  background: #ff9ec4;
+  border: 2px solid var(--vine);
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  box-shadow: 2px 3px 0 rgba(214, 51, 108, .2);
+  cursor: pointer; transition: transform .2s;
+}
+.btn:active { transform: scale(.94); }
+.btns { display: flex; gap: 16px; margin-top: 48px; position: relative; z-index: 2; }
+
+/* ---------- 4 second line-drawn heart ---------- */
+#anim { background: #ffd9e8; }
+#heartLine { position: relative; z-index: 2; width: 92vw; height: 80vh; }
+.heart-path {
+  fill: none; stroke: #ff4d8d; stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(255, 77, 141, .45));
+}
+#anim.active .heart-path { animation: drawHeart 4s ease-in-out both; }
+@keyframes drawHeart {
+  from { stroke-dashoffset: var(--len); }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ---------- the question ---------- */
+.ask {
+  position: relative; z-index: 2; max-width: 94vw; padding: 0 6px;
+  font-family: var(--font); font-weight: 400;
+  font-size: clamp(1.9rem, 7.5vw, 3rem); line-height: 1.25; color: var(--ink);
+}
+.ask-top, .ask-bottom { display: block; }
+.ask-top { position: relative; top: -16px; margin-bottom: 10px; }
+.ask-bottom { position: relative; top: 16px; }
+#ask.active .ask { animation: popIn .9s both cubic-bezier(.2, 1.5, .4, 1); }
+@keyframes popIn { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
+
+/* ---------- celebration (text stays still) ---------- */
+.yay, .yay-sub, .yay-big, .yay-date {
+  position: relative; z-index: 2; max-width: 94vw;
+  font-family: var(--font); font-weight: 400;
+  line-height: 1.3; color: var(--ink); text-align: center;
+  transform: translateY(-55px);
+}
+.yay { font-size: clamp(1.6rem, 6.5vw, 2.6rem); }
+.yay-sub { font-size: clamp(1.6rem, 6.5vw, 2.6rem); margin-top: 6px; }
+.yay-big { font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 500; margin-top: 16px; }
+.yay-date { font-size: clamp(1.2rem, 5vw, 1.8rem); margin-top: 10px; }
+#yay.active .yay { animation: fadeIn 1s both; }
+#yay.active .yay-sub { animation: fadeIn 1s .4s both; }
+#yay.active .yay-big { animation: fadeIn 1s .8s both; }
+#yay.active .yay-date { animation: fadeIn 1s 1.2s both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- sketched tulips below the date ---------- */
+#tulipDoodle {
+  position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
+  z-index: 2; width: min(80vw, 110px); height: auto;
+  color: var(--doodle); overflow: visible;
+}
+#tulipDoodle path {
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: var(--len); stroke-dashoffset: var(--len);
+}
+#yay.active #tulipDoodle path {
+  animation: sketchTulip 1.6s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+#yay.active #tulipDoodle .tulip-stem { animation-duration: 1.8s; }
+@keyframes sketchTulip { to { stroke-dashoffset: 0; } }
+
+/* ---------- background sketch pattern ---------- */
+#bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; transition: filter .6s; }
+#bg.blurred { filter: blur(4px); }
+.bg-doodle {
+  position: absolute; transform: translate(-50%, -50%);
+  opacity: .45; color: var(--doodle);
+}
+.bg-doodle svg { width: 100%; height: 100%; }
+
+/* ---------- floating hearts (fireworks) ---------- */
+#fx { position: fixed; inset: 0; z-index: 9; pointer-events: none; overflow: hidden; }
+.heart { position: absolute; line-height: 1; }
+.pop { animation: burst 1.6s ease-out forwards; }
+@keyframes burst {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; }
+}
+.rise { bottom: -40px; animation: rise var(--t) linear forwards; }
+@keyframes rise {
+  0%   { transform: translateX(0); opacity: 0; }
+  10%  { opacity: .9; }
+  100% { transform: translate(var(--dx), -115vh); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tap-hint, .bg-doodle { animation: none; }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For the one I love</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Doodle shapes used everywhere (don't delete) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="doodle-flower" viewBox="0 0 100 100">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+        <ellipse cx="50" cy="25" rx="13" ry="19"/>
+        <ellipse cx="50" cy="25" rx="13" ry="19" transform="rotate(72 50 50)"/>
+        <ellipse cx="50" cy="25" rx="13" ry="19" transform="rotate(144 50 50)"/>
+        <ellipse cx="50" cy="25" rx="13" ry="19" transform="rotate(216 50 50)"/>
+        <ellipse cx="50" cy="25" rx="13" ry="19" transform="rotate(288 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="9" fill="none" stroke="currentColor" stroke-width="3"/>
+    </symbol>
+    <symbol id="doodle-heart" viewBox="0 0 24 24">
+      <path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"
+            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="vine-leaf" viewBox="0 0 24 24">
+      <path d="M2 12C7 3 17 3 22 12C17 21 7 21 2 12Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M3 12H21" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+    </symbol>
+  </svg>
+
+  <div id="bg"></div>
+
+  <!-- SCENE 1: closed letter (tap to open) -->
+  <section class="scene active" id="cover">
+    <div class="card" id="coverCard">
+      <svg class="card-bow" viewBox="0 0 90 40" aria-hidden="true">
+        <path d="M45 20 C25 3 6 6 10 20 C14 33 32 30 45 20 Z"/>
+        <path d="M45 20 C65 3 84 6 80 20 C76 33 58 30 45 20 Z"/>
+        <path d="M45 20 C37 25 31 32 27 38"/>
+        <path d="M45 20 C53 25 59 32 63 38"/>
+        <circle cx="45" cy="20" r="5"/>
+      </svg>
+      <h1 class="title">For the one I love with everything I have</h1>
+    </div>
+    <span class="tap-hint cover-hint" id="openHint">Next ♥</span>
+  </section>
+
+  <!-- SCENE 2: the open letter -->
+  <section class="scene" id="letter">
+    <div class="paper-frame">
+      <div class="paper" id="paper">
+
+        <p>To the best part of my days,</p>
+        <p>Baby two months na tayo magkausap and today is the day. Grateful ako kasi I get to love you, you've brought so much warmth and comfort into my life. Kahit na may mga araw tayo na hindi na magkaintindihan at parang every other day nag-aaway tayo. Pipiliin ko lagi makipag-ayos at mas pipiliin pa kita lagi over anything else. Mahal na mahal kita baby, ayaw kong mawala ka sa akin, gusto kita makasama nang matagal, gusto ko lagi ka lang nasa tabi ko. No matter where life takes us next, I’m just glad I get to walk through it with you. I love you, baby ko. :)</p>
+        <p>With all my heart,<br>Liana</p>
+
+      </div>
+    </div>
+    <button class="tap-hint" id="nextBtn">Next ♥</button>
+  </section>
+
+  <!-- SCENE 3: 4 second line-drawn heart + heart fireworks -->
+  <section class="scene" id="anim">
+    <svg id="heartLine" viewBox="0 0 200 180" aria-hidden="true">
+      <path class="heart-path" d="M100 168C100 168 10 105 10 55C10 25 32 8 58 8C76 8 92 18 100 32C108 18 124 8 142 8C168 8 190 25 190 55C190 105 100 168 100 168Z"/>
+    </svg>
+  </section>
+
+  <!-- SCENE 4: the question -->
+  <section class="scene" id="ask">
+    <h2 class="ask">
+      <span class="ask-top">Every moment with you feels like exactly where I'm supposed to be.</span>
+      <span class="ask-bottom">Would you do me the honor of being my girlfriend?</span>
+    </h2>
+    <div class="btns">
+      <button class="btn yes">Yes</button>
+      <button class="btn yes">Yes</button>
+    </div>
+  </section>
+
+  <!-- SCENE 5: celebration -->
+  <section class="scene" id="yay">
+    <h2 class="yay">There's no place I'd rather be than right here with you, excited for everything ahead of us through it all.</h2>
+    <p class="yay-big">I love you, baby.</p>
+    <p class="yay-date">11/20/2026</p>
+    <svg id="tulipDoodle" viewBox="0 0 100 110" aria-hidden="true">
+      <!-- stem drawn from the ground upward -->
+      <path class="tulip-stem" d="M50 104 L50 66"/>
+      <!-- leaves -->
+      <path class="tulip-leaf" d="M50 84 Q30 80 24 64 Q42 66 50 84"/>
+      <path class="tulip-leaf" d="M50 90 Q70 86 76 70 Q58 72 50 90"/>
+      <!-- bloom -->
+      <path class="tulip-bloom" d="M18 22 Q22 48 32 58 Q50 72 68 58 Q78 48 82 22 Q68 32 50 22 Q32 32 18 22 Z"/>
+      <path class="tulip-bloom" d="M50 22 Q44 42 50 62"/>
+      <path class="tulip-bloom" d="M34 27 Q32 45 44 60"/>
+      <path class="tulip-bloom" d="M66 27 Q68 45 56 60"/>
+    </svg>
+  </section>
+
+  <div id="fx"></div>
+  <script src="script.js"></script>
+</body>
+</html>
